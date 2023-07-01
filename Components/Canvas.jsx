@@ -1,37 +1,37 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 
-const getRandomSymbol = () => {
-  const symbols = "!@#$%^&*()_+-=[]{};':\"\\|,<.>/?";
-  return symbols[Math.floor(Math.random() * symbols.length)];
-};
+// const getRandomSymbol = () => {
+//   const symbols = "!@#$%^&*()_+-=[]{};':\"\\|,<.>/?";
+//   return symbols[Math.floor(Math.random() * symbols.length)];
+// };
 
-const getRandomDigit = () => Math.floor(Math.random() * 10);
+// const getRandomDigit = () => Math.floor(Math.random() * 10);
 
-const scramble = (text) => {
-  let result = '';
-  for (let i = 0; i < text.length; i++) {
-    result += Math.random() > 0.5 ? getRandomSymbol() : getRandomDigit();
-  }
-  return result;
-};
+// const scramble = (text) => {
+//   let result = '';
+//   for (let i = 0; i < text.length; i++) {
+//     result += Math.random() > 0.5 ? getRandomSymbol() : getRandomDigit();
+//   }
+//   return result;
+// };
 
-const Canvas = () => {
-  const [scrambledText, setScrambledText] = useState('KXKDA');
+// const Canvas = () => {
+//   const [scrambledText, setScrambledText] = useState('KXKDA');
 
-  useEffect(() => {
-    const scrambleInterval = setInterval(() => {
-      setScrambledText(scramble('KXKDA'));
-    }, 100);
+//   useEffect(() => {
+//     const scrambleInterval = setInterval(() => {
+//       setScrambledText(scramble('KXKDA'));
+//     }, 100);
 
-    return () => {
-      clearInterval(scrambleInterval);
-    };
-  }, []);
+//     return () => {
+//       clearInterval(scrambleInterval);
+//     };
+//   }, []);
 
-  return <p className='dark:text-white text-xl'>{scrambledText}</p>;
-};
+//   return <p className='dark:text-white text-xl'>{scrambledText}</p>;
+// };
 
-export default Canvas;
+// export default Canvas;
 
 // import { useEffect, useRef } from 'react';
 
@@ -70,43 +70,43 @@ export default Canvas;
 
 
 
-// import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-// export default function Canvas() {
-//   const canvasRef = useRef(null);
+export default function Canvas() {
+  const canvasRef = useRef(null);
 
-//   useEffect(() => {
-//     const canvas = canvasRef.current;
-//     const context = canvas.getContext('2d');
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
 
-//     canvas.width = window.innerWidth / 2;
-//     canvas.height = window.innerHeight / 2;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-//     const letters = ['K', 'X', 'K', 'D', 'A'];
-//     const fontSize = 20;
-//     context.font = `${fontSize}px monospace`;
+    const letters = ['K', 'X', 'K', 'D', 'A'];
+    const fontSize = 20;
+    context.font = `${fontSize}px monospace`;
 
-//     const columns = canvas.width / fontSize;
-//     const rows = canvas.height / fontSize;
+    const columns = canvas.width / fontSize;
+    const rows = canvas.height / fontSize;
 
-//     const draw = () => {
-//       context.fillStyle = '#070707';
-//       context.fillRect(0, 0, canvas.width, canvas.height);
-//       context.fillStyle = '#fafafa';
+    const draw = () => {
+      context.fillStyle = '#070707';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillStyle = '#adb5bd';
 
-//       for (let i = 0; i < columns; i++) {
-//         for (let j = 0; j < rows; j++) {
-//           const letter = letters[Math.floor(Math.random() * letters.length)];
-//           context.fillText(letter, i * fontSize, j * fontSize);
-//         }
-//       }
-//     };
+      for (let i = 0; i < columns; i++) {
+        for (let j = 0; j < rows; j++) {
+          const letter = letters[Math.floor(Math.random() * letters.length)];
+          context.fillText(letter, i * fontSize, j * fontSize);
+        }
+      }
+    };
 
-//     setInterval(draw, 500);
-//   }, []);
+    setInterval(draw, 100);
+  }, []);
 
-//   return <canvas ref={canvasRef} />;
-// }
+  return <canvas ref={canvasRef} />;
+}
 
 
 // import React, { useEffect, useRef } from 'react';
