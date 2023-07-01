@@ -1,3 +1,65 @@
+import { useEffect, useRef } from 'react';
+
+function Canvas() {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const context = canvas.getContext('2d');
+        const words = [];
+        const wordSpeed = 1.75; // Change this value to alter speed
+
+        context.font = "18px Arial";
+        context.fillStyle = "#fafafa";
+
+        for(let i = 0; i < 30; i++) {
+            words.push({
+                text: "KXKDA",
+                x: Math.random() * (canvas.width - context.measureText("KXKDA").width),
+                y: Math.random() * (canvas.height - 20),
+                dx: (Math.random() - 0.5) * wordSpeed,
+                dy: (Math.random() - 0.5) * wordSpeed,
+            });
+        }
+
+        function animate() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            for(let i = 0; i < words.length; i++) {
+                let word = words[i];
+                context.fillText(word.text, word.x, word.y);
+
+                if (word.x + context.measureText(word.text).width > canvas.width || word.x < 0) word.dx = -word.dx;
+                if (word.y > canvas.height - 20 || word.y < 0) word.dy = -word.dy;
+
+                word.x += word.dx;
+                word.y += word.dy;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+        
+        // Adjust canvas size on window resize
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    }, []);
+
+    return (
+        <canvas className='z-10' ref={canvasRef} />
+    );
+}
+
+export default Canvas;
+
+
+
+
+
 // import { useEffect, useState } from 'react';
 
 // const getRandomSymbol = () => {
@@ -70,43 +132,43 @@
 
 
 
-import React, { useEffect, useRef } from 'react';
+// import React, { useEffect, useRef } from 'react';
 
-export default function Canvas() {
-  const canvasRef = useRef(null);
+// export default function Canvas() {
+//   const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+//   useEffect(() => {
+//     const canvas = canvasRef.current;
+//     const context = canvas.getContext('2d');
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+//     canvas.width = window.innerWidth;
+//     canvas.height = window.innerHeight;
 
-    const letters = ['K', 'X', 'K', 'D', 'A'];
-    const fontSize = 20;
-    context.font = `${fontSize}px monospace`;
+//     const letters = ['K', 'X', 'K', 'D', 'A'];
+//     const fontSize = 20;
+//     context.font = `${fontSize}px monospace`;
 
-    const columns = canvas.width / fontSize;
-    const rows = canvas.height / fontSize;
+//     const columns = canvas.width / fontSize;
+//     const rows = canvas.height / fontSize;
 
-    const draw = () => {
-      context.fillStyle = '#070707';
-      context.fillRect(0, 0, canvas.width, canvas.height);
-      context.fillStyle = '#adb5bd';
+//     const draw = () => {
+//       context.fillStyle = '#070707';
+//       context.fillRect(0, 0, canvas.width, canvas.height);
+//       context.fillStyle = '#adb5bd';
 
-      for (let i = 0; i < columns; i++) {
-        for (let j = 0; j < rows; j++) {
-          const letter = letters[Math.floor(Math.random() * letters.length)];
-          context.fillText(letter, i * fontSize, j * fontSize);
-        }
-      }
-    };
+//       for (let i = 0; i < columns; i++) {
+//         for (let j = 0; j < rows; j++) {
+//           const letter = letters[Math.floor(Math.random() * letters.length)];
+//           context.fillText(letter, i * fontSize, j * fontSize);
+//         }
+//       }
+//     };
 
-    setInterval(draw, 100);
-  }, []);
+//     setInterval(draw, 100);
+//   }, []);
 
-  return <canvas ref={canvasRef} />;
-}
+//   return <canvas ref={canvasRef} />;
+// }
 
 
 // import React, { useEffect, useRef } from 'react';
