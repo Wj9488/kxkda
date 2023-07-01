@@ -5,14 +5,9 @@
 @tailwind utilities;
 
 body {
-  background-color: #fafafa;
+  background-color: #070707;
+  overflow: hidden;
 }
 /* .header__letter_spacing {
     letter-spacing: -32px; 
 } */
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #070707;
-  }
-}

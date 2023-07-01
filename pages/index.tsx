@@ -1,4 +1,5 @@
 import Head from "next/head"
+import Canvas from "@/Components/Canvas"
 export default function Home() {
   return (
     <>
@@ -19,7 +20,9 @@ export default function Home() {
         />
     </Head>
     <main className="lg:min-h-screen min-h-[100dvh] flex items-center justify-center">
-      <p className="dark:text-[#fafafa] text-3xl header__letter_spacing">KXKDA</p>
+      <div>
+        <Canvas />
+      </div>
     </main>
     </>
   )
