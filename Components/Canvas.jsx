@@ -350,54 +350,69 @@
 
 // ________________________________________________________________
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 const Canvas = () => {
     const canvasRef = useRef(null);
-    const starCount = 200; // You can change this value later
-    const starColour = '#fafafa'; // You can change this value later
-  
+    const starCount = 200;
+    const starColour = '#fafafa';
+
+    const [canvasSize, setCanvasSize] = useState({ width: 0, height: 0 });
+
     useEffect(() => {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext('2d');
-      const stars = [];
-  
-      for (let i = 0; i < starCount; i++) {
-        stars.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          size: Math.random() * 2.5,
-          speed: Math.random() * 5 + 1
-        });
-      }
-  
-      const animate = () => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        context.fillStyle = starColour;
-  
-        for (let star of stars) {
-          star.y += star.speed;
-          if (star.y > canvas.height) {
-            star.y = 0;
-            star.x = Math.random() * canvas.width;
-            star.speed = Math.random() * 5 + 1;
-          }
-          context.fillRect(star.x, star.y, star.size, star.size);
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+        const stars = [];
+
+        for (let i = 0; i < starCount; i++) {
+            stars.push({
+                x: Math.random() * canvasSize.width,
+                y: Math.random() * canvasSize.height,
+                size: Math.random() * 2.5,
+                speed: Math.random() * 5 + 1,
+            });
         }
-  
-        requestAnimationFrame(animate);
-      };
-  
-      animate();
-  
-    }, [starColour]);
-  
+
+        const animate = () => {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            context.fillStyle = starColour;
+
+            for (let star of stars) {
+                star.y += star.speed;
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                    star.speed = Math.random() * 5 + 1;
+                }
+                context.fillRect(star.x, star.y, star.size, star.size);
+            }
+
+            requestAnimationFrame(animate);
+        };
+
+        animate();
+    }, [starColour, canvasSize]);
+
+    useEffect(() => {
+        // Set canvas size on the client side
+        setCanvasSize({
+            width: window.innerWidth,
+            height: window.innerHeight,
+        });
+    }, []);
+
     return (
-      <canvas ref={canvasRef} style={{ background: '#070707' }} width={window.innerWidth} height={window.innerHeight}></canvas>
+        <canvas
+            ref={canvasRef}
+            style={{ background: '#070707' }}
+            width={canvasSize.width}
+            height={canvasSize.height}
+        ></canvas>
     );
-}
+};
 
 export default Canvas;
+
 
 
 // ____________________________________________
