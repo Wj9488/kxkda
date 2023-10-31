@@ -5,8 +5,11 @@
 @tailwind utilities;
 
 body {
-  background-color: #070707;
+  background-color: #f5ebe0;
   overflow: hidden;
+
+  font-family: Helvetica, Arial, "Inter", serif;
+  font-weight: 200;
 }
 /* .header__letter_spacing {
     letter-spacing: -32px; 
